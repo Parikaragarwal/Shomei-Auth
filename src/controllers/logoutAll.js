@@ -1,28 +1,30 @@
 import db from "../ultils/db.config.js";
+import { eq } from "drizzle-orm";
 
-export default async function logoutAllController(session_id){
+import {
+    users,
+    userSessions
+} from "../db/schema.js";
+
+export default async function logoutAllController(session_id) {
+
     const user = await db.query.users.findFirst({
-        where: {
-            session_id: session_id,
-        }
+        where: eq(users.session_id, session_id)
     });
-    if(!user){
+
+    if (!user) {
         throw new Error("Invalid session. User not found");
     }
-    await db.users.update({
-        where: {
-            id: user.id,
-        },
-        set: {
+
+    await db.update(users)
+        .set({
             session_id: null,
-        }
-    });
-    await db.query.userSessions.updateMany({
-        where: {
-            user_id: user.id,
-        },
-        set: {
+        })
+        .where(eq(users.id, user.id));
+
+    await db.update(userSessions)
+        .set({
             status: "revoked",
-        }
-    });
+        })
+        .where(eq(userSessions.user_id, user.id));
 }

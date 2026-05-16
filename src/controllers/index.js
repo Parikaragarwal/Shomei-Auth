@@ -4,6 +4,8 @@ import clientSignupController from "./clientSignUp.js";
 import authorizeController from "./authorize.js";
 import tokenExchangeController from "./tokenExchange.js";
 import logoutAllController from "./logoutAll.js";
+import showAuthorizePage from "./showAuthorizePage.js";
+import confirmAuthorize from "./confirmAuthorize.js"
 
 export {
     userSignupController,
@@ -11,5 +13,7 @@ export {
     clientSignupController,
     authorizeController,
     tokenExchangeController,
-    logoutAllController
+    logoutAllController,
+    showAuthorizePage,
+    confirmAuthorize
 };

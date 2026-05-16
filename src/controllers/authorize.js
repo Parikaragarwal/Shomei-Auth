@@ -7,10 +7,7 @@ import {
   authorizationCodes
 } from "../db/schema.js";
 
-export default async function authorizeController(
-  client_id,
-  req
-) {
+export default async function authorizeController(client_id,req) {
   const client = await db.query.clients.findFirst({
     where: eq(clients.client_id, client_id)
   });
@@ -19,14 +16,7 @@ export default async function authorizeController(
     throw new Error("Client not found");
   }
 
-  const userSessionId =
-    req.headers.cookie
-      ?.split(";")
-      .find(cookie =>
-        cookie.trim().startsWith("session_id=")
-      )
-      ?.split("=")[1];
-
+  const userSessionId = req.cookies.session_id;
   if (!userSessionId) {
     throw new Error("User not authenticated");
   }

@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&family=Epilogue:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 400;
+  background: #0D1612;
+  background-image:
+    radial-gradient(ellipse 70% 60% at 15% 40%, rgba(52,95,72,0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 85% 70%, rgba(24,52,42,0.50) 0%, transparent 65%);
+  color: #D6EAE0;
+  min-height: 100vh;
+  padding: 2.5rem 2rem;
+}
+
+.container {
+  max-width: 860px;
+  margin: auto;
+}
+
+/* ─── Page title ────────────────────────────────────── */
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #EAF5EE;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* ─── Warning banner ────────────────────────────────── */
+
+.warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(180, 90, 40, 0.18);
+  border: 1px solid rgba(220, 130, 70, 0.45);
+  color: #F5C08A;
+  padding: 1rem 1.2rem;
+  border-radius: 11px;
+  margin-bottom: 1.8rem;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.warning::before {
+  content: '⚠';
+  font-size: 15px;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
+/* ─── Cards ─────────────────────────────────────────── */
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 0.5px solid rgba(140, 190, 160, 0.18);
+  border-radius: 16px;
+  padding: 1.6rem 1.8rem;
+  margin-bottom: 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160,210,180,0.22), transparent);
+}
+
+/* ─── Card headings ─────────────────────────────────── */
+
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #7DC4A4;
+  margin-bottom: 1.2rem;
+}
+
+/* ─── Fields ────────────────────────────────────────── */
+
+.field {
+  margin-bottom: 1.1rem;
+}
+
+.label {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #6BAF90;
+  margin-bottom: 7px;
+}
+
+/* ─── Code ──────────────────────────────────────────── */
+
+code {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 400;
+  background: rgba(8, 20, 14, 0.80);
+  border: 0.5px solid rgba(80, 150, 115, 0.22);
+  color: #A8E6C4;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  word-break: break-all;
+  letter-spacing: 0.02em;
+  margin-top: 0.6rem;
+  line-height: 1.6;
+}
+
+/* ─── Pre ───────────────────────────────────────────── */
+
+pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  font-weight: 400;
+  background: rgba(8, 20, 14, 0.80);
+  border: 0.5px solid rgba(80, 150, 115, 0.22);
+  color: #B8EDD4;
+  padding: 1.1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.85;
+}
+
+/* ─── Lists ─────────────────────────────────────────── */
+
+ol {
+  padding-left: 1.3rem;
+  margin: 0.7rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+li {
+  font-size: 14px;
+  font-weight: 400;
+  color: #B8D8CC;
+  line-height: 1.6;
+  padding-left: 4px;
+}
