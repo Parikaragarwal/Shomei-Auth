@@ -25,12 +25,17 @@ export async function showAuthorizePageHandler(req,res) {
 
 export async function confirmAuthorizeHandler(req,res) {
     try {
-    const result =
-    await controllers.confirmAuthorize(req.body.client_id,req);
-    return res.redirect(
-        `${result.redirect_uri}?shortcode=${result.shortcode}`
-    );
+    const result = await controllers.confirmAuthorize(req.body.client_id,req);
 
+    const cleanUri = result.redirect_uri.trim();
+
+        // 2. Use the URL constructor for safe parsing and query param injection
+        const redirectUrl = new URL(cleanUri);
+        redirectUrl.searchParams.append("shortcode", result.shortcode);
+
+        // 3. Execute the redirect with the guaranteed valid string
+        return res.redirect(redirectUrl.toString());
+        
     } catch (err) {
     console.error(
         "Error confirming authorization:",
