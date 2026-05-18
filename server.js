@@ -3,6 +3,7 @@ import express, { urlencoded } from "express";
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import "dotenv/config"
 
 import * as routeHandlers from './src/routes.js'
 

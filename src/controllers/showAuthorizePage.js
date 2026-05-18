@@ -6,7 +6,7 @@ import {
     users
 } from "../db/schema.js";
 
-export default async function showAuthorizePage(client_id,req) {
+export default async function showAuthorizePage(client_id,req,res) {
 
     const client =
         await db.query.clients.findFirst({
@@ -24,9 +24,7 @@ export default async function showAuthorizePage(client_id,req) {
         req.cookies.session_id;
 
     if (!session_id) {
-        throw new Error(
-            "User not authenticated"
-        );
+        return res.redirect('/login');
     }
 
     const user =
@@ -38,6 +36,7 @@ export default async function showAuthorizePage(client_id,req) {
         });
 
     if (!user) {
+        return res.redirect('/login');
         throw new Error(
             "Invalid session"
         );

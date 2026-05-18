@@ -6,7 +6,7 @@ import "dotenv/config"
 export async function showAuthorizePageHandler(req,res) {
     try {
     const client =
-    await controllers.showAuthorizePage(req.params.id,req);
+    await controllers.showAuthorizePage(req.params.id,req,res);
 
     return res.render(
         "authorize",
@@ -35,7 +35,7 @@ export async function confirmAuthorizeHandler(req,res) {
 
         // 3. Execute the redirect with the guaranteed valid string
         return res.redirect(redirectUrl.toString());
-        
+
     } catch (err) {
     console.error(
         "Error confirming authorization:",
