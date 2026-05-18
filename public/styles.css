@@ -136,3 +136,23 @@ button:hover {
 button:active {
   transform: translateY(0);
 }
+
+.change-page {
+  display: flex;
+  justify-content: center;
+  margin:5px;
+  padding: 3px;
+}
+
+.another{
+  width:100%;
+  font-size:8px;
+  font-weight: 300;
+  padding: 0.425rem 0.5rem;
+}
+
+.specialcontainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
