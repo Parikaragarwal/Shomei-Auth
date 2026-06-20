@@ -3,11 +3,11 @@ import crypto from "node:crypto";
 import { eq } from "drizzle-orm";
 import {
   clients,
-  users,
-  authorizationCodes
+  users
 } from "../db/schema.js";
+import redisClient from "../ultils/redis.client.js";
 
-export default async function authorizeController(client_id,req) {
+export default async function authorizeController(client_id,req, code_challenge, code_challenge_method) {
   const client = await db.query.clients.findFirst({
     where: eq(clients.client_id, client_id)
   });
@@ -32,14 +32,14 @@ export default async function authorizeController(client_id,req) {
   const shortcode =
     crypto.randomBytes(16).toString("hex");
 
-  await db.insert(authorizationCodes).values({
-    code: shortcode,
+  const payload = {
     client_id: client.client_id,
     user_id: user.id,
-    expires_at: new Date(
-      Date.now() + 5 * 60 * 1000
-    )
-  });
+    code_challenge,
+    code_challenge_method
+  };
+
+  await redisClient.set(`auth_code:${shortcode}`, JSON.stringify(payload), 'EX', 300);
 
   return {
     redirect_uri: client.redirect_uri,

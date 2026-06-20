@@ -1,19 +1,15 @@
-import userSignupController from "./userSignUp.js";
-import loginController from "./userLogin.js";
-import clientSignupController from "./clientSignUp.js";
-import authorizeController from "./authorize.js";
-import tokenExchangeController from "./tokenExchange.js";
-import logoutAllController from "./logoutAll.js";
-import showAuthorizePage from "./showAuthorizePage.js";
-import confirmAuthorize from "./confirmAuthorize.js"
-
-export {
-    userSignupController,
-    loginController,
-    clientSignupController,
-    authorizeController,
-    tokenExchangeController,
-    logoutAllController,
-    showAuthorizePage,
-    confirmAuthorize
-};
+export { default as userSignupController } from "./userSignUp.js";
+export { default as loginController } from "./userLogin.js";
+export { default as clientSignupController } from "./clientSignUp.js";
+export { default as authorizeController } from "./authorize.js";
+export { default as tokenExchangeController } from "./tokenExchange.js";
+export { default as logoutAllController } from "./logoutAll.js";
+export { default as showAuthorizePage } from "./showAuthorizePage.js";
+export { default as confirmAuthorize } from "./confirmAuthorize.js";
+export { default as verifyOTP } from "./verifyOtp.js";
+export { default as resendOTP } from "./resendOtp.js";
+export { default as forgotPasswordController } from "./forgotPassword.js";
+export { default as resetPasswordController } from "./resetPassword.js";
+export { default as logoutController } from "./logout.js";
+export { default as getPublicClientInfo } from "./clientInfo.js";
+export * from "./dashboard.js";

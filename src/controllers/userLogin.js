@@ -13,6 +13,10 @@ export default async function loginController(email, password) {
         throw new Error("User with email not found");
     }
 
+    if(!user.is_verified){
+        throw new Error('User is not verified, Please verify your email first');
+    }
+
     const passwordMatch = await bcrypt.compare(
         password,
         user.password_hash

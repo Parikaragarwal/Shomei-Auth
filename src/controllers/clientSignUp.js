@@ -2,13 +2,25 @@ import db from "../ultils/db.config.js";
 import bcrypt from "bcrypt";
 import crypto from "node:crypto";
 import { and, eq } from "drizzle-orm";
-import { clients } from "../db/schema.js";
+import { clients, userSessions, users } from "../db/schema.js";
 
 export default async function clientSignupController(
   name,
   base_url,
-  redirect_uri
+  redirect_uri,
+  sessionId
 ) {
+  if (!sessionId) throw new Error("Unauthorized");
+
+  // Validate session and get user_id
+  const sessionRecord = await db.query.users.findFirst({
+    where: eq(users.session_id, sessionId)
+  });
+
+  if (!sessionRecord) {
+    throw new Error("Invalid or expired session");
+  }
+
   const existingClient =
     await db.query.clients.findFirst({
       where: and(
@@ -30,6 +42,7 @@ export default async function clientSignupController(
 
   await db.insert(clients).values({
     client_id,
+    owner_id: sessionRecord.id,
     client_secret_hash,
     name,
     base_url,

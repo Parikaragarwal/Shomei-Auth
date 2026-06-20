@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  shomei_postgres:
+    image: postgres:15
+    container_name: shomei_postgres
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: oidc_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  shomei_redis:
+    image: redis:alpine
+    container_name: shomei_redis
+    ports:
+      - "6380:6379"
+    restart: unless-stopped
+
+  shomei_backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shomei_backend
+    ports:
+      - "3371:3371"
+      - "4983:4983"
+    environment:
+      - DATABASE_URL=postgresql://myuser:mypassword@shomei_postgres:5432/oidc_db
+      - REDIS_URL=redis://shomei_redis:6379
+      - NODE_ENV=production
+      - PORT=3371
+    env_file:
+      - .env
+    depends_on:
+      - shomei_postgres
+      - shomei_redis
+    restart: unless-stopped
+
+  shomei_frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: shomei_frontend
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
