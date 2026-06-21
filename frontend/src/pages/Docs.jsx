@@ -28,7 +28,7 @@ export default function Docs() {
           <h3 style={{ color: 'var(--text-secondary)', fontSize: '1.3rem', marginBottom: '1rem' }}>Step 1: Redirect the User</h3>
           <p style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>Redirect the user's browser to the OIDC Frontend for them to log in and grant consent.</p>
           <pre style={{ background: '#0a0a0a', padding: '1.5rem', borderRadius: '8px', overflowX: 'auto', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '2rem', color: '#e5e5e5' }}>
-            <code>{`<a href="http://localhost:3000/authorize/YOUR_CLIENT_ID">Login with Shomei</a>`}</code>
+            <code>{`<a href="${window.location.origin}/authorize/YOUR_CLIENT_ID">Login with Shomei</a>`}</code>
           </pre>
 
           <h3 style={{ color: 'var(--text-secondary)', fontSize: '1.3rem', marginBottom: '1rem' }}>Step 2: Handle the Callback</h3>
@@ -38,7 +38,7 @@ export default function Docs() {
   const shortcode = req.query.shortcode;
 
   // Exchange shortcode for tokens
-  const tokenResponse = await axios.post("http://localhost:3371/token-exchange", {
+  const tokenResponse = await axios.post("${import.meta.env.VITE_API_URL || 'http://localhost:3371'}/token-exchange", {
     shortcode,
     clientId: "YOUR_CLIENT_ID",
     clientSecret: "YOUR_CLIENT_SECRET"
@@ -47,7 +47,7 @@ export default function Docs() {
   const accessToken = tokenResponse.data.access_token;
 
   // Fetch user profile
-  const userResponse = await axios.get("http://localhost:3371/userinfo", {
+  const userResponse = await axios.get("${import.meta.env.VITE_API_URL || 'http://localhost:3371'}/userinfo", {
     headers: { Authorization: \`Bearer \${accessToken}\` }
   });
 
@@ -85,7 +85,7 @@ export default function Docs() {
           <p style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>Include the challenge in your authorization URL.</p>
           <pre style={{ background: '#0a0a0a', padding: '1.5rem', borderRadius: '8px', overflowX: 'auto', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '2rem', color: '#e5e5e5' }}>
             <code>{`const challenge = await generatePKCE();
-const authUrl = \`http://localhost:3000/authorize/YOUR_CLIENT_ID?code_challenge=\${challenge}&code_challenge_method=S256\`;
+const authUrl = \`${window.location.origin}/authorize/YOUR_CLIENT_ID?code_challenge=\${challenge}&code_challenge_method=S256\`;
 window.location.href = authUrl;`}</code>
           </pre>
 
@@ -96,7 +96,7 @@ window.location.href = authUrl;`}</code>
 const shortcode = urlParams.get('shortcode');
 const codeVerifier = localStorage.getItem("pkce_verifier");
 
-const response = await fetch("http://localhost:3371/token-exchange", {
+const response = await fetch("${import.meta.env.VITE_API_URL || 'http://localhost:3371'}/token-exchange", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({

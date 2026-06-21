@@ -31,16 +31,16 @@ export default function ForestBackground() {
   }, []);
 
   return (
-    <div 
+    <div
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
-        width: '100vw',
+        width: '100%',
         height: '100vh',
         zIndex: -1,
         overflow: 'hidden',
-        backgroundImage: "url('/dark_forest_canopy.png')",
+        backgroundImage: "url('/canopy.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -90,7 +90,7 @@ export default function ForestBackground() {
           <Bird size={32 * bird.scale} />
         </motion.div>
       ))}
-      
+
       {/* Dark overlay to ensure text remains readable */}
       <div style={{
         position: 'absolute',
